@@ -6,6 +6,7 @@ enum custom_keycodes {
     MACRO_ENV,                  //Macro para activar entorno virtual
     MACRO_MOVE_TO_MONITOR,       //Macro para mover ventana a otro monitor
     MACRO_FXSOUND,              //Macro para enfocar FXSound
+    MACRO_CPP
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -33,6 +34,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MACRO_FXSOUND:
             if (record->event.pressed) {
                 SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_SPACE) SS_UP(X_LALT) "FxSound" SS_DELAY(400) SS_TAP(X_ENTER));
+            }
+            break;
+        case MACRO_CPP:
+            if (record -> event.pressed){
+                SEND_STRING("maincpp" SS_DELAY(200) SS_TAP(X_TAB));
             }
             break;
     }
@@ -64,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                                                          _______,                                            _______, _______,  _______
     ),
     [_LAYER2] = LAYOUT( /* Capslock Layer (for macros)*/
-        C(KC_GRAVE),           _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        C(KC_GRAVE),           _______,  _______, MACRO_CPP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         MACRO_MOVE_TO_MONITOR, MACRO_DISCORD, A(KC_F4), MACRO_ENV, _______, _______, _______, _______, _______, _______, KC_PSCR, _______, _______,          _______,
         _______,               _______, MACRO_SPOTIFY, _______, MACRO_FXSOUND, _______, _______, _______, _______, _______, _______, _______,                   _______,
         _______,               _______, _______, KC_CALC, _______, _______, _______, _______, _______, _______, _______,          _______, QK_BOOT,
